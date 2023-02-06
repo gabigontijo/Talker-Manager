@@ -32,7 +32,17 @@ const getOneTalker = async (id) => {
     return talkerWicthId[0];
 };
 
+const randomToken = (size) => {
+        let stringAleatoria = '';
+        const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (let i = 0; i < size; i += 1) {
+            stringAleatoria += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+        }
+        return stringAleatoria;
+};
+
 module.exports = {
     getAllTalker,
     getOneTalker,
+    randomToken,
 };

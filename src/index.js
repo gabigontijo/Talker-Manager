@@ -29,3 +29,7 @@ app.get('/talker/:id', async (req, res) => {
   }
    return res.status(HTTP_OK_STATUS).json(talk);
 });
+
+app.post('/login', (_req, res) => {
+    res.status(HTTP_OK_STATUS).json({ token: talker.randomToken(16) });
+});
