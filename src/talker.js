@@ -21,6 +21,18 @@ const getAllTalker = async () => {
   return talker;
 };
 
+const getOneTalker = async (id) => {
+    const talker = await readTalkerFile();
+    const talkerWicthId = talker.filter((talk) => Number(talk.id) === Number(id));
+    if (talkerWicthId.length === 0) {
+        return {
+            message: 'Pessoa palestrante não encontrada',
+          };
+    }
+    return talkerWicthId[0];
+};
+
 module.exports = {
     getAllTalker,
+    getOneTalker,
 };

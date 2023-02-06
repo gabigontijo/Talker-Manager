@@ -18,5 +18,14 @@ app.listen(PORT, () => {
 
 app.get('/talker', async (_req, res) => {
   const talk = await talker.getAllTalker();
-  res.status(HTTP_OK_STATUS).json(talk);
+  return res.status(HTTP_OK_STATUS).json(talk);
+});
+
+app.get('/talker/:id', async (req, res) => {
+  const { id } = req.params;
+  const talk = await talker.getOneTalker(id);
+  if (talk.id === undefined) {
+     return res.status(404).json(talk);
+  }
+   return res.status(HTTP_OK_STATUS).json(talk);
 });
