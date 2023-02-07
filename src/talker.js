@@ -13,6 +13,29 @@ const readTalkerFile = async () => {
     }
 };
 
+const getNewId = async () => {
+    const arrayId = await readTalkerFile();
+    const lastId = arrayId[arrayId.length - 1];
+    const newId = +lastId.id + 1;
+    return newId;
+};
+
+const writeTalkerFile = async (newTalker) => {
+    const path = '/talker.json';
+    try {
+        const oldTalker = await readTalkerFile();
+        // const oldTalker = [];
+        const newId = await getNewId();
+        const newTalkerWithId = { id: newId, ...newTalker };
+        const allTalker = JSON.stringify([...oldTalker, newTalkerWithId]);
+        console.log(allTalker);
+    await fs.writeFile(join(__dirname, path), allTalker);
+    return newTalkerWithId;
+    } catch (error) {
+        console.log(`falha ao escrever no arquivo ${error}`);
+    }
+};
+
 const getAllTalker = async () => {
     const talker = await readTalkerFile();
     if (talker instanceof Error && talker.message === unspectedJsonEnd) {
@@ -41,8 +64,19 @@ const randomToken = (size) => {
         return stringAleatoria;
 };
 
+const validateDate = (date) => {
+        const reg = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/;
+        console.log(date.match(reg));
+        if (date.match(reg)) {
+          return true;
+        }
+          return false;
+};
+
 module.exports = {
     getAllTalker,
+    writeTalkerFile,
     getOneTalker,
     randomToken,
+    validateDate,
 };
