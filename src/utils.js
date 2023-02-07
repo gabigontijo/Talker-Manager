@@ -73,10 +73,30 @@ const validateDate = (date) => {
           return false;
 };
 
+const getUpdate = async (id, talk) => {
+    const talkers = await readTalkerFile();
+    console.log('++++++ talker', talkers);
+    const talkUpdate = { id, ...talk };
+    const talkersUpdated = talkers.reduce((talkerlist, currentTalker) => {
+        console.log(talkerlist);
+        if (currentTalker.id === talkUpdate.id) return [...talkerlist, talkUpdate];
+        return [...talkerlist, currentTalker];
+    }, []);
+    const updateData = JSON.stringify(talkersUpdated);
+    const path = '/talker.json';
+    try {
+         await fs.writeFile(join(__dirname, path), updateData);
+         return talkUpdate;
+        } catch (error) {
+        console.log(`falha ao escrever no arquivo ${error}`);
+    }
+};
+
 module.exports = {
     getAllTalker,
     writeTalkerFile,
     getOneTalker,
     randomToken,
     validateDate,
+    getUpdate,
 };
