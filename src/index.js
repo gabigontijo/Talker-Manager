@@ -55,3 +55,9 @@ validateTalk, validateTalkWatchedAt, validateTalkRate, async (req, res) => {
   const talkerUpdate = await talker.getUpdate(Number(id), talk);
     return res.status(HTTP_OK_STATUS).json(talkerUpdate);
 });
+
+app.delete('/talker/:id', validateToken, async (req, res) => {
+  const { id } = req.params;
+ await talker.deleteTalker(Number(id));
+ return res.status(204).send();
+});

@@ -92,6 +92,17 @@ const getUpdate = async (id, talk) => {
     }
 };
 
+const deleteTalker = async (id) => {
+    const talkers = await readTalkerFile();
+    const path = '/talker.json';
+    const deletedList = JSON.stringify(talkers.filter((talk) => talk.id !== id));
+    try {
+        await fs.writeFile(join(__dirname, path), deletedList);
+       } catch (error) {
+       console.log(`falha ao escrever no arquivo ${error}`);
+   }
+};
+
 module.exports = {
     getAllTalker,
     writeTalkerFile,
@@ -99,4 +110,5 @@ module.exports = {
     randomToken,
     validateDate,
     getUpdate,
+    deleteTalker,
 };
