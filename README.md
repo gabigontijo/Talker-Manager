@@ -39,3 +39,4 @@ npm start
 ## :dart: Status do projeto/ Project status
 * Projeto finalizado/ Finished project.
 
+*This work was implemented on the basis of Trybe projects and has its copyright reserved.
